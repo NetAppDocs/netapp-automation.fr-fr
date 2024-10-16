@@ -1,0 +1,20 @@
+---
+settings:
+  name: NetApp Automation
+  internal:
+    pdf_enabled: true
+  prod:
+    pdf_enabled: true
+    harmony_enabled: false
+  langs: fr-fr,us-en,ja-jp,ko-kr,zh-cn,zh-tw,de-de,es-es,it-it
+sidebar:
+  entries:
+  - title: Documents sur l'automatisation NetApp
+    url: "/index.html"
+  - title: Quoi de neuf
+    url: "/about/whats-new.html"
+  - section: solutions
+  - section: api
+  - section: support
+  - title: Mentions légales
+    url: "/legal-notices.html"

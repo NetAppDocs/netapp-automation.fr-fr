@@ -1,0 +1,35 @@
+---
+sidebar: sidebar 
+permalink: support/get-help.html 
+keywords: help, support, netapp support, technical support, kb, communities 
+summary: 'NetApp assure le support de ses produits et services cloud de différentes manières. De nombreuses options d"auto-assistance gratuites sont disponibles 24 h/24 et 7 j/7, comme des articles de la base de connaissances (KB) et un forum communautaire.' 
+---
+= Obtenez de l'aide
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp assure le support de ses produits et services cloud de différentes manières. De nombreuses options d'auto-assistance gratuites sont disponibles 24 h/24 et 7 j/7, comme des articles de la base de connaissances (KB) et un forum communautaire.
+
+
+
+== Options d'auto-assistance
+
+* https://kb.netapp.com/["Base de connaissances"^]
++
+Recherchez dans la base de connaissances des articles utiles pour résoudre les problèmes.
+
+* http://community.netapp.com/["Communautés"^]
++
+Rejoignez une communauté NetApp pour suivre les discussions en cours ou en créer de nouvelles.
+
+* https://mysupport.netapp.com/["Support NetApp"^]
++
+Accédez aux outils de dépannage, à la documentation et à l'assistance technique.
+
+

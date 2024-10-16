@@ -1,0 +1,29 @@
+---
+sidebar: sidebar 
+permalink: api/astra.html 
+keywords: netapp products, product api, rest, rest api, astra, astra control 
+summary: ASTRA Control est un logiciel NetApp qui offre une gestion des données compatible avec les applications de clusters Kubernetes dans plusieurs environnements. Les deux modèles de déploiement partagent une API REST commune. Consultez la documentation et les ressources connexes ci-dessous pour commencer à automatiser vos déploiements Astra. 
+---
+= Contrôle Astra
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+ASTRA Control est un logiciel NetApp qui offre une gestion des données compatible avec les applications de clusters Kubernetes dans plusieurs environnements. Les deux modèles de déploiement partagent une API REST commune. Consultez la documentation et les ressources connexes ci-dessous pour commencer à automatiser vos déploiements Astra à l'aide de l'API REST d'Astra Control.
+
+.API REST Astra Control
+Vous pouvez utiliser l'API REST pour automatiser l'administration de vos déploiements Astra Control Service et Astra Control Center.
+
+* https://docs.netapp.com/us-en/astra-automation/["Documentation relative à Astra Control Automation"^]
+
+
+.Gamme Astra
+La documentation de la gamme Astra contient tout ce dont vous avez besoin pour installer et gérer Astra et les logiciels associés.
+
+* https://docs.netapp.com/us-en/astra-family/["Documentation Astra"^]
+

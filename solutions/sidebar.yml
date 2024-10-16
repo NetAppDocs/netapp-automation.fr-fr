@@ -1,0 +1,40 @@
+---
+section: solutions
+title: Catalogue d'automatisation BlueXP
+entries:
+- title: Présentation
+  url: "/solutions/bac-overview.html"
+- title: Amazon FSX pour NetApp ONTAP
+  entries:
+  - title: Migration vers le cloud
+    url: "/solutions/fsxn-burst-to-cloud.html"
+  - title: Reprise après incident
+    url: "/solutions/fsxn-disaster-recovery.html"
+- title: Azure NetApp Files
+  entries:
+  - title: Oracle
+    url: "/solutions/anf-oracle.html"
+- title: Cloud Volumes ONTAP pour AWS
+  entries:
+  - title: Migration vers le cloud
+    url: "/solutions/cvo-aws-burst-to-cloud.html"
+- title: Cloud Volumes ONTAP pour Azure
+  entries:
+  - title: Migration vers le cloud
+    url: "/solutions/cvo-azure-burst-to-cloud.html"
+- title: Cloud Volumes ONTAP pour Google Cloud
+  entries:
+  - title: Migration vers le cloud
+    url: "/solutions/cvo-gcp-burst-to-cloud.html"
+- title: ONTAP
+  entries:
+  - title: Jour 0/1
+    entries:
+    - title: Présentation
+      url: "/solutions/ontap-day01-overview.html"
+    - title: Préparation
+      url: "/solutions/ontap-day01-prepare.html"
+    - title: Déployez
+      url: "/solutions/ontap-day01-deploy.html"
+    - title: Personnaliser
+      url: "/solutions/ontap-day01-customize.html"

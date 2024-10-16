@@ -1,0 +1,109 @@
+---
+sidebar: sidebar 
+permalink: solutions/ontap-day01-overview.html 
+keywords: bluexp automation catalog, netapp automation solutions, ontap day 0/1, overview, introduction 
+summary: 'Vous pouvez utiliser la solution d"automatisation ONTAP Day 0/1 pour déployer et configurer un cluster ONTAP à l"aide d"Ansible.' 
+---
+= Présentation de la solution ONTAP Day 0/1
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Vous pouvez utiliser la solution d'automatisation ONTAP Day 0/1 pour déployer et configurer un cluster ONTAP à l'aide d'Ansible. La solution est disponible sur le link:https://console.bluexp.netapp.com/automationCatalog["Catalogue d'automatisation BlueXP"^].
+
+
+
+== Des options de déploiement ONTAP flexibles
+
+Selon les besoins, vous pouvez utiliser du matériel sur site ou simuler un ONTAP pour déployer et configurer un cluster ONTAP à l'aide d'Ansible.
+
+.Matériel sur site
+Vous pouvez déployer cette solution à l'aide d'un matériel sur site exécutant ONTAP, tel qu'un système FAS ou AFF. Vous devez utiliser une VM Linux pour déployer et configurer le cluster ONTAP à l'aide d'Ansible.
+
+.Simuler ONTAP
+Pour déployer cette solution à l'aide d'un simulateur ONTAP, vous devez télécharger la dernière version de Simulate ONTAP depuis le site de support NetApp. Simulate ONTAP est un simulateur virtuel pour le logiciel ONTAP. Simulez l'exécution de ONTAP dans un hyperviseur VMware sur un système Windows, Linux ou Mac. Pour les hôtes Windows et Linux, vous devez utiliser l'hyperviseur VMware Workstation pour exécuter cette solution. Si vous disposez d'un Mac OS, utilisez l'hyperviseur VMware Fusion.
+
+
+
+== Effet superposé
+
+Le framework Ansible simplifie le développement et la réutilisation de l'exécution de l'automatisation et des tâches logiques. Le cadre fait la distinction entre les tâches de prise de décision (couche logique) et les étapes d'exécution (couche d'exécution) dans l'automatisation. La compréhension du fonctionnement de ces couches vous permet de personnaliser la configuration.
+
+Un « PlayBook » Ansible exécute une série de tâches du début à la fin. Ce `site.yml` PlayBook contient le `logic.yml` PlayBook et le `execution.yml` PlayBook.
+
+Lors de l'exécution d'une demande, le `site.yml` PlayBook `logic.yml` appelle d'abord le PlayBook pour exécuter la `execution.yml` demande de service.
+
+Vous n'êtes pas tenu d'utiliser la couche logique de l'infrastructure. La couche logique offre des options permettant d'étendre la capacité du cadre au-delà des valeurs codées en dur pour l'exécution. Vous pouvez ainsi personnaliser les fonctionnalités de la structure, le cas échéant.
+
+.Couche logique
+La couche logique comprend les éléments suivants :
+
+*  `logic.yml`Le manuel de vente
+* Fichiers de tâches logiques dans le `logic-tasks` répertoire
+
+
+Cette couche logique facilite la prise de décision complexe sans nécessiter une intégration personnalisée significative (par exemple, connexion à ServiceNow). La couche logique est configurable et fournit des entrées aux microservices.
+
+La possibilité de contourner la couche logique est également fournie. Si vous souhaitez contourner la couche logique, ne définissez pas la `logic_operation` variable. L'invocation directe du `logic.yml` PlayBook permet d'effectuer un certain niveau de débogage sans exécution. Vous pouvez utiliser une instruction "debug" pour vérifier que la valeur de `raw_service_request` est correcte.
+
+Remarques importantes :
+
+* Le `logic.yml` PlayBook recherche la `logic_operation` variable. Si la variable est définie dans la requête, elle charge un fichier de tâche à partir du `logic-tasks` répertoire. Le fichier de tâche doit être un fichier .yml. S'il n'y a pas de fichier de tâche correspondant et que la `logic_operation` variable est définie, la couche logique échoue.
+* La valeur par défaut de la `logic_operation` variable est `no-op`. Si la variable n'est pas explicitement définie, elle prend par défaut la valeur `no-op`, qui n'exécute aucune opération.
+* Si la `raw_service_request` variable est déjà définie, l'exécution passe à la couche d'exécution. Si la variable n'est pas définie, la couche logique échoue.
+
+
+.Couche d'exécution
+La couche d'exécution comprend les éléments suivants :
+
+*  `execution.yml`Le manuel de vente
+
+
+La couche d'exécution effectue des appels d'API pour configurer un cluster ONTAP. Le `execution.yml` PlayBook requiert que la `raw_service_request` variable soit définie lors de son exécution.
+
+
+
+== Prise en charge de la personnalisation
+
+Vous pouvez personnaliser cette solution de différentes manières en fonction de vos besoins.
+
+Les options de personnalisation sont les suivantes :
+
+* Modification des playbooks Ansible
+* Ajout de rôles
+
+
+.Personnalisez les fichiers Ansible
+Le tableau suivant décrit les fichiers Ansible personnalisables contenus dans cette solution.
+
+[cols="25,75"]
+|===
+| Emplacement | Description 
+
+
+ a| 
+`playbooks/inventory/hosts`
+| Contient un seul fichier avec une liste d'hôtes et de groupes. 
+
+
+ a| 
+`playbooks/group_vars/all/*`
+| Ansible constitue un moyen pratique d'appliquer des variables à plusieurs hôtes en même temps. Vous pouvez modifier tout ou partie des fichiers de ce dossier, y compris `cfg.yml`, `clusters.yml`, `defaults.yml`, `services.yml`, `standards.yml` et `vault.yml`. 
+
+
+ a| 
+`playbooks/logic-tasks`
+| Soutient les tâches de prise de décision au sein d'Ansible et maintient la séparation de la logique et de l'exécution. Vous pouvez ajouter à ce dossier des fichiers correspondant au service concerné. 
+
+
+ a| 
+`playbooks/vars/*`
+| Valeurs dynamiques utilisées dans les playbooks et les rôles Ansible pour assurer la personnalisation, la flexibilité et la réutilisation des configurations. Si nécessaire, vous pouvez modifier tout ou partie des fichiers de ce dossier. 
+|===
+.Personnaliser les rôles
+Vous pouvez également personnaliser la solution en ajoutant ou en modifiant les rôles Ansible, également appelés microservices. Pour plus de détails, voir link:ontap-day01-customize.html["Personnaliser"].

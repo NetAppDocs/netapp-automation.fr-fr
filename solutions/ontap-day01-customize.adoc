@@ -1,0 +1,182 @@
+---
+sidebar: sidebar 
+permalink: solutions/ontap-day01-customize.html 
+keywords: bluexp automation catalog, netapp automation solutions, ontap day 0/1, customize, add roles 
+summary: Pour personnaliser la solution ONTAP Day 0/1 en fonction de vos exigences, vous pouvez ajouter ou modifier des rôles Ansible. 
+---
+= Personnalisez la solution ONTAP Day 0/1
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Pour personnaliser la solution ONTAP Day 0/1 en fonction de vos exigences, vous pouvez ajouter ou modifier des rôles Ansible.
+
+Les rôles représentent les microservices dans le framework Ansible. Chaque microservice effectue une opération. Par exemple, ONTAP Day 0 est un service qui contient plusieurs microservices.
+
+
+
+== Ajoutez des rôles Ansible
+
+Vous pouvez ajouter des rôles Ansible afin de personnaliser la solution en fonction de votre environnement. Les rôles requis sont définis par des définitions de service dans le framework Ansible.
+
+Un rôle doit répondre aux exigences suivantes pour être utilisé en tant que microservice :
+
+* Acceptez une liste d'arguments dans la `args` variable.
+* Utilisez la structure Ansible « bloc, sauvetage, toujours » en fonction des exigences de chaque bloc.
+* Utilisez un seul module Ansible et définissez une seule tâche dans le bloc.
+* Mettre en œuvre tous les paramètres de module disponibles conformément aux exigences détaillées dans cette section.
+
+
+.Structure de microservice requise
+Chaque rôle doit prendre en charge les variables suivantes :
+
+* `mode`: Si le mode est défini sur `test` le rôle tente d'importer le `test.yml` qui indique ce que le rôle fait sans l'exécuter réellement.
++
+
+NOTE: Il n'est pas toujours possible de le mettre en œuvre en raison de certaines interdépendances.
+
+* `status`: L'état global de l'exécution du PlayBook. Si la valeur n'est pas définie sur `success` le rôle n'est pas exécuté.
+* `args` : Une liste de dictionnaires spécifiques aux rôles avec des clés correspondant aux noms des paramètres de rôle.
+* `global_log_messages`: Collecte des messages de journal pendant l'exécution du PlayBook. Une entrée est générée chaque fois que le rôle est exécuté.
+* `log_name`: Le nom utilisé pour faire référence au rôle dans les `global_log_messages` entrées.
+* `task_descr`: Une brève description de ce que fait le rôle.
+* `service_start_time`: Horodatage utilisé pour suivre l'heure d'exécution de chaque rôle.
+* `playbook_status`: Le statut du PlayBook Ansible.
+* `role_result`: La variable qui contient la sortie de rôle et est incluse dans chaque message dans les `global_log_messages` entrées.
+
+
+
+
+== Exemple de structure de rôle
+
+L'exemple suivant fournit la structure de base d'un rôle qui implémente un microservice. Dans cet exemple, vous devez modifier les variables de votre configuration.
+
+.Montrer l'exemple
+[%collapsible]
+====
+Structure des rôles de base :
+
+[source, cli]
+----
+- name:  Set some role attributes
+  set_fact:
+    log_name:     "<LOG_NAME>"
+    task_descr:   "<TASK_DESCRIPTION>"
+
+-  name: "{{ log_name }}"
+   block:
+      -  set_fact:
+            service_start_time: "{{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+
+      -  name: "Provision the new user"
+         <MODULE_NAME>:
+            #-------------------------------------------------------------
+            # COMMON ATTRIBUTES
+            #-------------------------------------------------------------
+            hostname:            "{{ clusters[loop_arg['hostname']]['mgmt_ip'] }}"
+            username:            "{{ clusters[loop_arg['hostname']]['username'] }}"
+            password:            "{{ clusters[loop_arg['hostname']]['password'] }}"
+
+            cert_filepath:       "{{ loop_arg['cert_filepath']                | default(omit) }}"
+            feature_flags:       "{{ loop_arg['feature_flags']                | default(omit) }}"
+            http_port:           "{{ loop_arg['http_port']                    | default(omit) }}"
+            https:               "{{ loop_arg['https']                        | default('true') }}"
+            ontapi:              "{{ loop_arg['ontapi']                       | default(omit) }}"
+            key_filepath:        "{{ loop_arg['key_filepath']                 | default(omit) }}"
+            use_rest:            "{{ loop_arg['use_rest']                     | default(omit) }}"
+            validate_certs:      "{{ loop_arg['validate_certs']               | default('false') }}"
+
+            <MODULE_SPECIFIC_PARAMETERS>
+            #-------------------------------------------------------------
+            # REQUIRED ATTRIBUTES
+            #-------------------------------------------------------------
+            required_parameter:     "{{ loop_arg['required_parameter'] }}"
+            #-------------------------------------------------------------
+            # ATTRIBUTES w/ DEFAULTS
+            #-------------------------------------------------------------
+            defaulted_parameter:    "{{ loop_arg['defaulted_parameter'] | default('default_value') }}"
+            #-------------------------------------------------------------
+            # OPTIONAL ATTRIBUTES
+            #-------------------------------------------------------------
+            optional_parameter:     "{{ loop_arg['optional_parameter'] | default(omit) }}"
+         loop:    "{{ args }}"
+         loop_control:
+            loop_var:   loop_arg
+         register:   role_result
+
+   rescue:
+      -  name: Set role status to FAIL
+         set_fact:
+            playbook_status:   "failed"
+
+   always:
+      -  name: add log msg
+         vars:
+            role_log:
+               role: "{{ log_name }}"
+               timestamp:
+                  start_time: "{{service_start_time}}"
+                  end_time: "{{ lookup('pipe', 'date +%Y-%m-%d@%H:%M:%S') }}"
+               service_status: "{{ playbook_status }}"
+               result: "{{role_result}}"
+         set_fact:
+            global_log_msgs:   "{{ global_log_msgs + [ role_log ] }}"
+----
+====
+.Variables utilisées dans l'exemple de rôle :
+* `<NAME>`: Une valeur remplaçable qui doit être fournie pour chaque microservice.
+* `<LOG_NAME>`: Le nom de forme court du rôle utilisé à des fins de journalisation. Par exemple `ONTAP_VOLUME`, .
+* `<TASK_DESCRIPTION>`: Une brève description de ce que fait le microservice.
+* `<MODULE_NAME>`: Nom du module Ansible pour la tâche.
++
+
+NOTE: Le PlayBook de niveau supérieur `execute.yml` spécifie la `netapp.ontap` collection. Si le module fait partie de la `netapp.ontap` collection, il n'est pas nécessaire de spécifier entièrement le nom du module.
+
+* `<MODULE_SPECIFIC_PARAMETERS>`: Paramètres du module Ansible spécifiques au module utilisé pour implémenter le microservice. La liste suivante décrit les types de paramètres et leur mode de regroupement.
++
+** Paramètres requis : tous les paramètres requis sont spécifiés sans valeur par défaut.
+** Paramètres ayant une valeur par défaut spécifique au microservice (différente d'une valeur par défaut spécifiée par la documentation du module).
+** Tous les autres paramètres utilisent `default(omit)` comme valeur par défaut.
+
+
+
+
+
+
+== Utilisation de dictionnaires multi-niveaux comme paramètres de module
+
+Certains modules Ansible fournis par NetApp utilisent des dictionnaires multiniveaux pour les paramètres de module (par exemple, des groupes de règles de QoS fixes et adaptatifs).
+
+L'utilisation `default(omit)` seule ne fonctionne pas lorsque ces dictionnaires sont utilisés, surtout lorsqu'il y en a plus d'un et qu'ils s'excluent mutuellement.
+
+Si vous devez utiliser des dictionnaires multiniveaux comme paramètres de module, vous devez diviser la fonctionnalité en plusieurs microservices (rôles) de sorte que chacun d'entre eux puisse fournir au moins une valeur de dictionnaire de second niveau pour le dictionnaire approprié.
+
+Les exemples suivants présentent les groupes de règles de QoS fixes et adaptatifs répartis sur deux microservices.
+
+Le premier microservice contient des valeurs de groupe de règles QoS fixes :
+
+[listing]
+----
+fixed_qos_options:
+  capacity_shared:           "{{ loop_arg['fixed_qos_options']['capacity_shared']         | default(omit) }}"
+  max_throughput_iops:       "{{ loop_arg['fixed_qos_options']['max_throughput_iops']     | default(omit) }}"
+  min_throughput_iops:       "{{ loop_arg['fixed_qos_options']['min_throughput_iops']     | default(omit) }}"
+  max_throughput_mbps:       "{{ loop_arg['fixed_qos_options']['max_throughput_mbps']     | default(omit) }}"
+  min_throughput_mbps:       "{{ loop_arg['fixed_qos_options']['min_throughput_mbps']     | default(omit) }}"
+
+----
+Le second microservice contient les valeurs des groupes de règles de QoS adaptative :
+
+[listing]
+----
+adaptive_qos_options:
+  absolute_min_iops:         "{{ loop_arg['adaptive_qos_options']['absolute_min_iops'] | default(omit) }}"
+  expected_iops:             "{{ loop_arg['adaptive_qos_options']['expected_iops']     | default(omit) }}"
+  peak_iops:                 "{{ loop_arg['adaptive_qos_options']['peak_iops']         | default(omit) }}"
+
+----

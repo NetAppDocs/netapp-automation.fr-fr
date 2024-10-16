@@ -1,0 +1,53 @@
+---
+sidebar: sidebar 
+permalink: about/whats-new.html 
+keywords: whats new, enhancements, new features 
+summary: 'NetApp met régulièrement à jour les solutions d"automatisation, les API REST produit et les logiciels associés pour vous apporter de nouvelles fonctionnalités et améliorations ainsi que des correctifs.' 
+---
+= Nouveautés de l'automatisation NetApp
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp met régulièrement à jour les solutions d'automatisation, les API REST produit et les logiciels associés pour vous apporter de nouvelles fonctionnalités et améliorations ainsi que des correctifs.
+
+
+
+== 27 juillet 2023
+
+.Cloud Volumes ONTAP
+Le support pour Cloud Volumes ONTAP est organisé par environnement de cloud public. Une nouvelle solution est fournie pour l'environnement cloud suivant :
+
+* link:../solutions/cvo-gcp-burst-to-cloud.html["Cloud Volumes ONTAP pour Google Cloud - en rafale vers le cloud"]
+
+
+
+
+== 04 juin 2023
+
+Le NetApp https://console.bluexp.netapp.com/automationCatalog["Catalogue d'automatisation BlueXP"^] est disponible via l'interface utilisateur Web de BlueXP . Le catalogue d'automatisation vous donne accès à des solutions qui peuvent vous aider dans le déploiement et l'intégration automatisés des produits NetApp. La documentation de ces solutions est organisée en plusieurs produits ou domaines fonctionnels, comme décrit ci-dessous.
+
+.Amazon FSX pour NetApp ONTAP
+Deux solutions Amazon FSX pour NetApp ONTAP sont fournies comme suit :
+
+* link:../solutions/fsxn-burst-to-cloud.html["Amazon FSX pour NetApp ONTAP : en rafale vers le cloud"]
+* link:../solutions/fsxn-disaster-recovery.html["Amazon FSX pour NetApp ONTAP : reprise d'activité"]
+
+
+.Azure NetApp Files
+Une solution est incluse pour vous aider à déployer Oracle avec Azure NetApp Files :
+
+* link:../solutions/anf-oracle.html["Oracle avec Azure NetApp Files"]
+
+
+.Cloud Volumes ONTAP
+Le support pour Cloud Volumes ONTAP est organisé par environnement de cloud public. Des solutions initiales sont proposées pour deux environnements cloud, comme suit :
+
+* link:../solutions/cvo-aws-burst-to-cloud.html["Cloud Volumes ONTAP AWS : en rafale vers le cloud"]
+* link:../solutions/cvo-azure-burst-to-cloud.html["Cloud Volumes ONTAP Azure : en rafale vers le cloud"]
+
