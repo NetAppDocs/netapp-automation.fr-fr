@@ -66,7 +66,7 @@ NOTE: Si vous utilisez un Mac OS, vous devez disposer d'un processeur Intel.
 .Étapes
 Utilisez la procédure suivante pour installer deux simulateurs ONTAP dans votre environnement local :
 
-. Télécharger Simulate ONTAP à partir du link:https://mysupport.netapp.com/site/tools/tool-eula/simulate-ontap["Site de support NetApp"^].
+. Télécharger Simulate ONTAP à partir du link:https://mysupport.netapp.com/site/tools/tool-eula/ontap-simulate["Site de support NetApp"^].
 +
 
 NOTE: Bien que vous installiez deux simulateurs ONTAP, il vous suffit de télécharger une seule copie du logiciel.
