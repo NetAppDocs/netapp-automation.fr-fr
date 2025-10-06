@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: solutions/anf-oracle.html 
-keywords: bluexp automation catalog, netapp automation solutions, azure, azure netapp files, oracle 
+keywords: bluexp automation catalog, netapp automation solutions, azure, azure netapp files, oracle, console 
 summary: 'Vous pouvez utiliser cette solution d"automatisation pour provisionner les volumes Azure NetApp Files et installer Oracle sur une machine virtuelle disponible. Oracle utilise ensuite les volumes pour le stockage des données.' 
 ---
 = Installez Oracle à l'aide de Azure NetApp Files
@@ -34,7 +34,7 @@ Vous pouvez utiliser cette solution d'automatisation pour provisionner les volum
 .Avant de commencer
 Vous devez disposer des éléments suivants pour terminer l'installation :
 
-* Vous devez télécharger la https://console.bluexp.netapp.com/automationCatalog["Oracle avec Azure NetApp Files"^] solution d'automatisation via l'interface utilisateur Web de BlueXP . La solution est conditionnée en tant que fichier `na_oracle19c_deploy-master.zip`.
+* Vous devez télécharger le https://console.netapp.com/automationCatalog["Oracle avec Azure NetApp Files"^] solution d'automatisation via l'interface Web de la console NetApp .  La solution est conditionnée sous forme de fichier `na_oracle19c_deploy-master.zip` .
 * Une VM Linux présentant les caractéristiques suivantes :
 +
 ** RHEL 8 (Standard_D8s_v3-RHEL-8)

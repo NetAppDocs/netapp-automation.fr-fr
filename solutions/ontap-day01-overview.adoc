@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: solutions/ontap-day01-overview.html 
-keywords: bluexp automation catalog, netapp automation solutions, ontap day 0/1, overview, introduction 
+keywords: bluexp automation catalog, netapp automation solutions, ontap day 0/1, overview, introduction, netapp console 
 summary: 'Vous pouvez utiliser la solution d"automatisation ONTAP Day 0/1 pour déployer et configurer un cluster ONTAP à l"aide d"Ansible.' 
 ---
 = Présentation de la solution ONTAP Day 0/1
@@ -14,7 +14,7 @@ summary: 'Vous pouvez utiliser la solution d"automatisation ONTAP Day 0/1 pour d
 
 
 [role="lead"]
-Vous pouvez utiliser la solution d'automatisation ONTAP Day 0/1 pour déployer et configurer un cluster ONTAP à l'aide d'Ansible. La solution est disponible sur le link:https://console.bluexp.netapp.com/automationCatalog["Catalogue d'automatisation BlueXP"^].
+Vous pouvez utiliser la solution d’automatisation ONTAP jour 0/1 pour déployer et configurer un cluster ONTAP à l’aide d’Ansible.  La solution est disponible auprès dulink:https://console.netapp.com/automationCatalog["Catalogue d'automatisation de la console NetApp"^] .
 
 
 

@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: solutions/cvo-azure-burst-to-cloud.html 
-keywords: bluexp automation catalog, netapp automation solutions, azure, cloud volumes ontap, burst to cloud 
+keywords: bluexp automation catalog, netapp automation solutions, azure, cloud volumes ontap, burst to cloud. netapp, console 
 summary: 'Vous pouvez utiliser cette solution d"automatisation pour déployer Cloud Volumes ONTAP pour Azure à l"aide de Terraform.' 
 ---
 = Cloud Volumes ONTAP pour Azure : en rafale vers le cloud
@@ -14,12 +14,12 @@ summary: 'Vous pouvez utiliser cette solution d"automatisation pour déployer Cl
 
 
 [role="lead"]
-Cet article présente la solution d'automatisation NetApp Cloud Volumes ONTAP pour Azure, disponible auprès des clients NetApp depuis le catalogue d'automatisation BlueXP .
+Cet article prend en charge la solution NetApp Cloud Volumes ONTAP pour Azure Automation, qui est disponible pour les clients NetApp à partir du catalogue d’automatisation de la console NetApp .
 
 La solution d'automatisation Cloud Volumes ONTAP pour Azure automatise le déploiement conteneurisé d'Cloud Volumes ONTAP pour Azure à l'aide de Terraform, ce qui vous permet de déployer rapidement Cloud Volumes ONTAP pour Azure sans aucune intervention manuelle.
 
 .Avant de commencer
-* Vous devez télécharger la link:https://console.bluexp.netapp.com/automationCatalog["Cloud Volumes ONTAP Azure : en rafale vers le cloud"^]solution d'automatisation via l'interface utilisateur Web de BlueXP . La solution est fournie en tant que `CVO-Azure-Burst-To-Cloud.zip`.
+* Vous devez télécharger lelink:https://console.netapp.com/automationCatalog["Cloud Volumes ONTAP Azure : en rafale vers le cloud"^] solution d'automatisation via l'interface Web de la console.  La solution est conditionnée comme `CVO-Azure-Burst-To-Cloud.zip` .
 * Vous devez installer une machine virtuelle Linux sur le même réseau que Cloud Volumes ONTAP.
 * Après avoir installé la machine virtuelle Linux, vous devez suivre les étapes de cette solution pour installer les dépendances requises.
 
@@ -179,7 +179,7 @@ cvo_azure_flexcache_ubuntu_image latest 18db15a4d59c 2 weeks ago 1.14GB
 
 == Étape 3 : création de fichiers de variables d'environnement
 
-À ce stade, vous devez créer deux fichiers de variables d'environnement. Un fichier est destiné à l'authentification des API Azure Resource Manager à l'aide des informations d'identification principales du service. Le second fichier sert à définir des variables d'environnement afin que les modules BlueXP  Terraform puissent localiser et authentifier les API Azure.
+À ce stade, vous devez créer deux fichiers de variables d’environnement.  Un fichier est destiné à l’authentification des API Azure Resource Manager à l’aide des informations d’identification du principal de service.  Le deuxième fichier permet de définir des variables d’environnement pour permettre aux modules de la console Terraform de localiser et d’authentifier les API Azure.
 
 .Étapes
 . Créez une entité de service.
@@ -255,24 +255,24 @@ Entrez le chemin absolu du `credentials.env` fichier d'environnement dans le `.e
 
 
 
-== Étape 4 : ajoutez des licences Cloud Volumes ONTAP à BlueXP  ou abonnez-vous à BlueXP 
+== Étape 4 : Inscrivez-vous aux services intelligents NetApp
 
-Vous pouvez ajouter des licences Cloud Volumes ONTAP à BlueXP  ou vous abonner à NetApp BlueXP  sur Azure Marketplace.
+Inscrivez-vous aux services intelligents NetApp via votre fournisseur de cloud pour payer à l'heure (PAYGO) ou via un contrat annuel. Les services intelligents NetApp incluent NetApp Backup and Recovery, Cloud Volumes ONTAP, NetApp Cloud Tiering, NetApp Ransomware Resilience et NetApp Disaster Recovery. La classification des données NetApp est incluse dans votre abonnement sans frais supplémentaires
 
 .Étapes
-. Sur le portail Azure, accédez à *SaaS* et sélectionnez *s'abonner à NetApp BlueXP *.
+. Depuis le portail Azure, accédez à *SaaS* et sélectionnez *S’abonner aux services intelligents NetApp *.
 . Sélectionnez le plan *Cloud Manager (par Cap PYGO par heure, WORM et services de données)*.
 +
 Vous pouvez utiliser le même groupe de ressources que Cloud Volumes ONTAP ou un autre groupe de ressources.
 
-. Configurez le portail BlueXP  pour importer l'abonnement SaaS vers BlueXP .
+. Configurez le portail de la console pour importer l’abonnement SaaS dans la console.
 +
 Vous pouvez le configurer directement à partir du portail Azure en accédant à *Détails du produit et du plan* et en sélectionnant l'option *configurer le compte maintenant*.
 
 +
-Vous serez ensuite redirigé vers le portail BlueXP  pour confirmer la configuration.
+Vous serez ensuite redirigé vers le portail de la console pour confirmer la configuration.
 
-. Confirmez la configuration dans le portail BlueXP  en sélectionnant *Enregistrer*.
+. Confirmez la configuration dans le portail de la console en sélectionnant *Enregistrer*.
 
 
 
@@ -344,7 +344,7 @@ Vous devriez voir les fichiers de variables suivants dans le dossier :
 Vous devez lire la documentation spécifique lors de la modification de l'une des valeurs de variable du `terraform.tfvars` fichier. Ces valeurs peuvent varier en fonction de la région, des zones de disponibilité et d'autres facteurs pris en charge par Cloud Volumes ONTAP pour Azure. Notamment les licences, la taille des disques et la taille des machines virtuelles pour les nœuds uniques et les paires haute disponibilité.
 
 +
-Toutes les variables de support pour les modules Connector et Cloud Volumes ONTAP Terraform sont déjà définies dans le `variables.tf` fichier. Vous devez vous référer aux noms de variable dans le `variables.tf` fichier avant de l'ajouter au `terraform.tfvars` fichier.
+Toutes les variables de support pour l'agent de console et les modules Cloud Volumes ONTAP Terraform sont déjà définies dans le `variables.tf` déposer.  Vous devez faire référence aux noms de variables dans le `variables.tf` fichier avant de l'ajouter au `terraform.tfvars` déposer.
 
 . Selon vos besoins, vous pouvez activer ou désactiver FlexCache et FlexClone en définissant les options suivantes sur `true` ou `false`.
 +
